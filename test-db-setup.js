@@ -51,8 +51,18 @@ beforeEach(async done => {
   }
   done()
 })
+// afterEach(async done => {
+//   await mongoose.connection.db.dropDatabase()
+//   await mongoose.disconnect()
+//   return done()
+// })
 afterEach(async done => {
-  await mongoose.connection.db.dropDatabase()
+  try {
+    await mongoose.connection.db.dropDatabase()
+    await mongoose.disconnect()
+  } catch (err) {
+    console.log(err)
+  }
   await mongoose.disconnect()
   return done()
 })
